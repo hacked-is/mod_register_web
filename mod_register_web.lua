@@ -77,7 +77,7 @@ else
 	local random = math.random;
 	local hmac_sha1 = require "util.hashes".hmac_sha1;
 	local secret = require "util.uuid".generate()
-	local ops = { '/', '%', '*' };
+	local ops = { '*' };
 	local captcha_tpl = get_template "simplecaptcha";
 	function generate_captcha()
 		local op = ops[random(1, #ops)];
