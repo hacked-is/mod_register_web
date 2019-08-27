@@ -85,6 +85,9 @@ else
 		repeat
 			y = random(1, 9);
 		until x ~= y;
+		local a = random(999, 999999);
+		local b = random(999, 999999);
+		local c = random(999, 999999);
 		local answer;
 		local encoded_op;
 		if op == '/' then
@@ -111,7 +114,7 @@ else
 		local encoded_y = "<span style=\"display:none;\">5626754</span>"..y.."<span style=\"display:none;\">98234</span>";;
 
 		return captcha_tpl.apply {
-			op = encoded_op, x = encoded_x, y = encoded_y, challenge = challenge;
+			a = a, b = b, c = c, op = encoded_op, x = encoded_x, y = encoded_y, challenge = challenge;
 		};
 	end
 	function verify_captcha(request, form, callback)
