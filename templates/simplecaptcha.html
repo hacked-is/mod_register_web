@@ -1,14 +1,14 @@
-<script>
-  let x = {x};
-  let y = {y};
-  let op = {op};
-  document.getElementById("{a}").innerHTML = x;
-  document.getElementById("{b}").innerHTML = y;
-  document.getElementById("{c}").innerHTML = op;
-</script>
-
 <tr>
   <th>What is <span id="{a}"></span> <span id="{b}"></span> <span id="{c}"></span>?</th><td>
     <input name="captcha_challenge" type="hidden" value="{challenge}">
     <input name="captcha_reply" pattern="[0-9]+" required type="number">
   </td></tr>
+
+<script>
+  let x = '{x}';
+  let y = '{y}';
+  let op = '{op}';
+  document.getElementById('{a}').innerHTML = x;
+  document.getElementById('{b}').innerHTML = op;
+  document.getElementById('{c}').innerHTML = y;
+</script>
