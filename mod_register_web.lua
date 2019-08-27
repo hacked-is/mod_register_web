@@ -77,7 +77,7 @@ else
 	local random = math.random;
 	local hmac_sha1 = require "util.hashes".hmac_sha1;
 	local secret = require "util.uuid".generate()
-	local ops = { '+', '-' };
+	local ops = { '/', '%', '*' };
 	local captcha_tpl = get_template "simplecaptcha";
 	function generate_captcha()
 		local op = ops[random(1, #ops)];
@@ -86,18 +86,32 @@ else
 			y = random(1, 9);
 		until x ~= y;
 		local answer;
-		if op == '+' then
-			answer = x + y;
+		local encoded_op;
+		if op == '/' then
+			encoded_op = "&#47;";
+			answer = x / y;
+		elseif op == '%' then
+			encoded_op = "&#37;";
+			answer = x % y;
+		elseif op == '*' then
+			encoded_op = "&#42;";
+			answer = x * y;
 		elseif op == '-' then
 			if x < y then
 				-- Avoid negative numbers
 				x, y = y, x;
 			end
+			encoded_op = "&#45;";
 			answer = x - y;
 		end
 		local challenge = hmac_sha1(secret, answer, true);
+	        
+		
+		local encoded_x = "<span style=\"display:none;\">5626754</span>"..x.."<span style=\"display:none;\">98234</span>";
+		local encoded_y = "<span style=\"display:none;\">5626754</span>"..y.."<span style=\"display:none;\">98234</span>";;
+
 		return captcha_tpl.apply {
-			op = op, x = x, y = y, challenge = challenge;
+			op = encoded_op, x = encoded_x, y = encoded_y, challenge = challenge;
 		};
 	end
 	function verify_captcha(request, form, callback)
